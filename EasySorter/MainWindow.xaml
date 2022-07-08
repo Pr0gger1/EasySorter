@@ -1,0 +1,108 @@
+﻿<Window x:Class="EasySorter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EasySorter"
+        mc:Ignorable="d"
+        Title="EasySorter" Height="280" Width="500" ResizeMode="NoResize" Icon="/Assets/Icons/sort.ico">
+
+    <Window.Resources>
+        <Style x:Key="BodyProgram" TargetType="StackPanel">
+            <Setter Property="Width" Value="480"/>
+        </Style>
+
+        <Style x:Key="TextStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 10 0 0"/>
+        </Style>
+
+
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#303b44"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#4a5c6a"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#4a5c6a"/>
+        <Style x:Key="CustomBtn" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <ToolBar Height="30" VerticalAlignment="Top">
+            <Button x:Name="DeactivateBtn" Content="Удалить из контекстного меню" Click="DeactivateBtn_Click"/>
+            <Button x:Name="AboutBtn" Content="О программе" Click="AboutBtn_Click"/>
+        </ToolBar>
+
+        <StackPanel x:Name="BodyProgram" Style="{StaticResource BodyProgram}" Margin="10,30,10,85">
+            <Border CornerRadius="10" Background="#cacaca" BorderThickness="2" Padding="4" Margin="0, 0, 0, 15">
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource TextStyle}" 
+                           Text="Здравствуйте, вы используете программу-сортировщик файлов." 
+                           FontSize="12"
+                           FontFamily="Cascadia Mono"/>
+            </Border>
+
+            <Border CornerRadius="10" Background="#cacaca" BorderThickness="2" Padding="4" Width="480">
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource TextStyle}"
+                           Text="Чтобы начать им пользоваться, нажмите 'Начать'. В нужном вам каталоге нажмите ПКМ и выберите пункт 'Сортировать файлы.'"
+                           FontSize="13"
+                           FontFamily="Cascadia Mono"/>
+            </Border>
+
+        </StackPanel>
+        <Button Style="{DynamicResource CustomBtn}" x:Name="ActivateBtn" Content="Начать" HorizontalAlignment="Center" Margin="0,184,0,0" 
+                VerticalAlignment="Top" 
+                Width="376"
+                Height="30"
+                Foreground="White"
+                Click="ActivateBtn_Click"/>
+
+
+    </Grid>
+</Window>
