@@ -8,9 +8,9 @@ namespace EasySorter
 {
     internal class Sorter
     {
-        private static readonly Dictionary<string, string[]> file_category = new Dictionary<string, string[]> {
+        private static readonly Dictionary<string, string[]> fileCategory = new Dictionary<string, string[]> {
             {
-                "Фотографии", new string[]{ ".png", ".jpg"} 
+                "Фотографии", new string[]{ ".png", ".jpg", ".jpeg", "webp", ".gif"} 
             },
             {
                 "Текстовые файлы", new string[]{ ".txt" }
@@ -35,9 +35,6 @@ namespace EasySorter
             },
             {
                 "Исполняемыe файлы", new string[]{ ".exe", ".msi" } 
-            },
-            {
-                "Системные файлы", new string[]{ ".sys", ".reg" }
             },
             {
                 "Презентации", new string[]{ ".pptx", ".ppt" } 
@@ -67,7 +64,7 @@ namespace EasySorter
         public void Run()
         {
             Create_category();
-            Sort_files();
+            Sort_files(fileCategory);
             Delete_empty_dir();
             Application.Current.Shutdown();
         }
@@ -78,14 +75,14 @@ namespace EasySorter
         }
         private void Create_category()
         {
-            foreach (KeyValuePair<string, string[]> type_content in file_category)
+            foreach (KeyValuePair<string, string[]> type_content in fileCategory)
             {
                 Directory.CreateDirectory(type_content.Key);
             }
         }
         private void Delete_empty_dir()
         {
-            foreach (KeyValuePair<string, string[]> type_content in file_category)
+            foreach (KeyValuePair<string, string[]> type_content in fileCategory)
             {
                 if (Directory.Exists($"{root_dir}\\{type_content.Key}"))
                 {
@@ -102,14 +99,14 @@ namespace EasySorter
                 }
             }
         }
-        private void Sort_files()
+        private void Sort_files(Dictionary<string, string[]> file_cat)
         {
             string Executable_file = Process.GetCurrentProcess().MainModule.FileName;
             string[] files = Get_files();
             foreach (string file in files)
             {
                 string current_fileExtension = Path.GetExtension(file);
-                foreach (KeyValuePair<string, string[]> cat_dict in file_category)
+                foreach (KeyValuePair<string, string[]> cat_dict in file_cat)
                 {
                     if (cat_dict.Value.Contains(current_fileExtension) && (file != Executable_file))
                     {

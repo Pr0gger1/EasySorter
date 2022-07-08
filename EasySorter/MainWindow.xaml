@@ -9,11 +9,17 @@
 
     <Window.Resources>
         <Style x:Key="BodyProgram" TargetType="StackPanel">
-            <Setter Property="Width" Value="480"/>
+            <Setter Property="Width" Value="460"/>
         </Style>
 
         <Style x:Key="TextStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="0 10 0 0"/>
+        </Style>
+
+        <Style x:Key="ToolBarBtn" TargetType="Button">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#dde5e6"/>
+            <Setter Property="Margin" Value="0 0 5 0"/>
         </Style>
 
 
@@ -76,33 +82,45 @@
 
     <Grid>
         <ToolBar Height="30" VerticalAlignment="Top">
-            <Button x:Name="DeactivateBtn" Content="Удалить из контекстного меню" Click="DeactivateBtn_Click"/>
-            <Button x:Name="AboutBtn" Content="О программе" Click="AboutBtn_Click"/>
+            <Button x:Name="DeactivateBtn"
+                    Content="Удалить из контекстного меню"
+                    Click="DeactivateBtn_Click"
+                    Style="{StaticResource ToolBarBtn}"/>
+            <Button x:Name="AboutBtn"
+                    Content="О программе"
+                    Click="AboutBtn_Click"
+                    Style="{StaticResource ToolBarBtn}"/>
         </ToolBar>
 
-        <StackPanel x:Name="BodyProgram" Style="{StaticResource BodyProgram}" Margin="10,30,10,85">
-            <Border CornerRadius="10" Background="#cacaca" BorderThickness="2" Padding="4" Margin="0, 0, 0, 15">
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource TextStyle}" 
+        <StackPanel x:Name="BodyProgram"
+                    Style="{StaticResource BodyProgram}" 
+                    Margin="20,30,20,0">
+            <Border CornerRadius="4" Padding="5" Height="150">
+                <StackPanel>
+                    <TextBlock TextWrapping="Wrap" Style="{StaticResource TextStyle}" 
                            Text="Здравствуйте, вы используете программу-сортировщик файлов." 
                            FontSize="12"
-                           FontFamily="Cascadia Mono"/>
-            </Border>
-
-            <Border CornerRadius="10" Background="#cacaca" BorderThickness="2" Padding="4" Width="480">
-                <TextBlock TextWrapping="Wrap" Style="{StaticResource TextStyle}"
-                           Text="Чтобы начать им пользоваться, нажмите 'Начать'. В нужном вам каталоге нажмите ПКМ и выберите пункт 'Сортировать файлы.'"
+                           FontFamily="Cascadia Mono" FontWeight="Normal" FontStyle="Normal"/>
+                    <TextBlock TextWrapping="Wrap" Style="{StaticResource TextStyle}"
+                           Text="Чтобы начать им пользоваться, нажмите 'Активировать'. В нужном вам каталоге нажмите ПКМ и выберите пункт 'Сортировать файлы.'"
                            FontSize="13"
                            FontFamily="Cascadia Mono"/>
+                </StackPanel>
             </Border>
+            <Grid Background="#f0f0f0">
+                <Button Style="{DynamicResource CustomBtn}"
+                    x:Name="ActivateBtn"
+                    Content="Активировать" 
+                    HorizontalAlignment="Center"
+                    Margin="0 20"
+                    VerticalAlignment="Top" 
+                    Width="380"
+                    Height="30"
+                    Foreground="White"
+                    Click="ActivateBtn_Click"/>
+            </Grid>
+            
 
         </StackPanel>
-        <Button Style="{DynamicResource CustomBtn}" x:Name="ActivateBtn" Content="Начать" HorizontalAlignment="Center" Margin="0,184,0,0" 
-                VerticalAlignment="Top" 
-                Width="376"
-                Height="30"
-                Foreground="White"
-                Click="ActivateBtn_Click"/>
-
-
     </Grid>
 </Window>

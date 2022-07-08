@@ -52,16 +52,16 @@ namespace EasySorter
 
         }
 
-        public static void CreateSubMenu(string title_item, string name_menu)
+        public static void CreateSubMenu(string titleItem, string menuName)
         {
             try
             {
                 RegistryPath = Registry.LocalMachine;
 
                 RegistryKey RootCatalog = RegistryPath.CreateSubKey(Registry_SubMenuPath);
-                RegistryKey MenuCatalog = RootCatalog.CreateSubKey(name_menu, true);
+                RegistryKey MenuCatalog = RootCatalog.CreateSubKey(menuName, true);
 
-                MenuCatalog.SetValue(string.Empty, title_item);
+                MenuCatalog.SetValue(string.Empty, menuName);
                 MenuCatalog.SetValue("Icon", "explorer.exe");
                 MenuCatalog.CreateSubKey("command", true).SetValue(string.Empty, "explorer.exe");
 
@@ -72,7 +72,7 @@ namespace EasySorter
                 RegistryKey SubMenuCatalog = MenuCatalog.CreateSubKey("SortMenu");
 
                 SubMenuCatalog.SetValue("MUIVerb", "Меню UniversalTools");
-                SubMenuCatalog.SetValue("SubCommands", $"{name_menu};");
+                SubMenuCatalog.SetValue("SubCommands", $"{menuName};");
 
                 RegistryPath.Close();
                 MenuCatalog.Close();

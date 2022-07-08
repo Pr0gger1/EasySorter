@@ -12,6 +12,7 @@ namespace EasySorter
             InitializeComponent();
 
             bool Enable = RegistryWorker.IsRegExist();
+
             DeactivateBtn.IsEnabled = Enable;
             ActivateBtn.IsEnabled = !Enable;
         }
@@ -21,12 +22,20 @@ namespace EasySorter
             try
             {
                 RegistryWorker.Activate();
+
                 ActivateBtn.IsEnabled = false;
-                DeactivateBtn.IsEnabled = true; MessageBox.Show("Пункт сортировки добавлен в контекстное меню", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                DeactivateBtn.IsEnabled = true; 
+                
+                MessageBox.Show(
+                    "Пункт сортировки добавлен в контекстное меню", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information
+                    );
             }
             catch (System.UnauthorizedAccessException)
             {
-                MessageBox.Show("Программу необходимо запустить от имени администратора!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Программу необходимо запустить от имени администратора!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+
                 ActivateBtn.IsEnabled = false;
                 DeactivateBtn.IsEnabled = false;
             }
@@ -35,8 +44,10 @@ namespace EasySorter
         private void DeactivateBtn_Click(object sender, RoutedEventArgs e)
         {
             RegistryWorker.Deactivate();
+
             ActivateBtn.IsEnabled = true;
             DeactivateBtn.IsEnabled = false;
+
             MessageBox.Show("Пункт удален из контекстного меню", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
